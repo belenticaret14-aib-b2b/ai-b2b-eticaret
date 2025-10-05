@@ -1,52 +1,259 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AI B2B E-Ticaret Platformu
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Modern Laravel 12 tabanlı kapsamlı B2B/B2C e-ticaret platformu. Çoklu platform entegrasyonu, AI destekli ürün yönetimi ve gelişmiş API altyapısı ile.
 
-## About Laravel
+## 🚀 Özellikler
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### 🛍️ E-Ticaret Özellikleri
+- **B2C Vitrin**: Genel müşteriler için modern vitrin sistemi
+- **B2B Panel**: Bayiler için özel fiyatlandırma ve toplu sipariş
+- **Session-tabanlı Sepet**: Hızlı ve güvenli sepet yönetimi
+- **Gelişmiş Ürün Yönetimi**: Kategori, marka, özellik yönetimi
+- **Stok ve Fiyat Takibi**: Otomatik stok kontrolü ve fiyat güncellemeleri
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🔗 Platform Entegrasyonları
+- **Trendyol API**: Tam entegrasyon (ürün, stok, fiyat, sipariş)
+- **Hepsiburada API**: Kapsamlı marketplace entegrasyonu
+- **N11 API**: Ürün ve sipariş senkronizasyonu
+- **Amazon Marketplace**: Global e-ticaret entegrasyonu
+- **XML Feed'ler**: Platform-bağımsız veri paylaşımı
+- **Webhook Desteği**: Gerçek zamanlı senkronizasyon
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🤖 AI ve Otomasyon
+- **AI Ürün Önerisi**: Akıllı ürün öneri sistemi
+- **Barkod Entegrasyonu**: Otomatik ürün tanımlama
+- **Otomatik Senkronizasyon**: Zamanlanmış platform senkronizasyonu
+- **Akıllı Stok Yönetimi**: Kritik stok seviyesi takibi
 
-## Learning Laravel
+### 📊 B2B Özellikleri
+- **Bayi Yönetimi**: Çoklu bayi desteği ve yetkilendirme
+- **Özel Fiyatlandırma**: Bayi-specific fiyat listeleri
+- **Toplu Sipariş**: API destekli bulk order sistemi
+- **Kredi Limiti**: Bayi kredi takibi ve vade yönetimi
+- **Cari Hesap**: Detaylı finansal raporlama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🔌 API Altyapısı
+- **RESTful API**: Kapsamlı v1 API
+- **Laravel Sanctum**: Modern token authentication
+- **Rate Limiting**: Platform-specific API sınırları
+- **Webhook Support**: Gerçek zamanlı event handling
+- **XML/JSON Export**: Esnek veri formatları
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Teknoloji Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Backend**: Laravel 12, PHP 8.2+
+- **Frontend**: TailwindCSS, AlpineJS, Blade Templates
+- **Database**: MySQL/SQLite
+- **Authentication**: Laravel Sanctum (API Tokens)
+- **Build Tools**: Vite, NPM
+- **Cache**: Redis (opsiyonel)
+- **Queue**: Database/Redis queue support
 
-## Laravel Sponsors
+## 📋 Gereksinimler
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- PHP 8.2 veya üzeri
+- Composer
+- Node.js 18+ ve NPM
+- MySQL 8.0+ veya SQLite
+- Apache/Nginx web server
 
-### Premium Partners
+## ⚡ Kurulum
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 1. Projeyi Klonlayın
+```bash
+git clone https://github.com/your-repo/ai-b2b.git
+cd ai-b2b
+```
 
-## Contributing
+### 2. Bağımlılıkları Yükleyin
+```bash
+composer install
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Çevre Değişkenlerini Ayarlayın
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4. Veritabanını Kurun
+```bash
+# SQLite için (development)
+touch database/database.sqlite
+
+# MySQL için .env dosyasında:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=ai_b2b
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+php artisan migrate:fresh --seed
+```
+
+### 5. Asset'leri Derleyin
+```bash
+npm run dev   # Development için
+npm run build # Production için
+```
+
+### 6. Sunucuyu Başlatın
+```bash
+php artisan serve
+```
+
+## 🔐 API Authentication
+
+### Token Alma
+```bash
+POST /api/auth/login
+{
+    "email": "admin@example.com",
+    "password": "password"
+}
+```
+
+### API Kullanımı
+```bash
+# Header'da token kullanın
+Authorization: Bearer {your-token}
+
+# Örnek API çağrıları
+GET /api/v1/urunler
+POST /api/v1/sepet/ekle
+GET /api/v1/b2b/urunler  # B2B endpoints
+```
+
+## 🌐 Platform Entegrasyonları
+
+### Trendyol Kurulumu
+```php
+// .env dosyasında
+TRENDYOL_API_KEY=your_api_key
+TRENDYOL_API_SECRET=your_api_secret
+
+// Admin panelinden mağaza ekleyin
+POST /api/v1/admin/magazalar
+{
+    "ad": "Trendyol Mağazam",
+    "platform": "trendyol",
+    "api_anahtari": "your_api_key",
+    "api_gizli_anahtar": "your_api_secret"
+}
+```
+
+### XML Feed'ler
+```bash
+# Ürün feed'i
+GET /api/v1/xml/urunler?platform=trendyol
+
+# Stok feed'i  
+GET /api/v1/xml/stok?platform=hepsiburada
+
+# Fiyat feed'i
+GET /api/v1/xml/fiyat?platform=n11
+```
+
+## 📚 API Dokümantasyonu
+
+### B2C Endpoints
+```bash
+GET    /api/v1/urunler                 # Ürün listesi
+GET    /api/v1/urun/{id}               # Ürün detayı
+GET    /api/v1/urunler/arama?q=term    # Ürün arama
+POST   /api/v1/sepet/ekle              # Sepete ekle
+GET    /api/v1/sepet                   # Sepet içeriği
+PUT    /api/v1/sepet/guncelle          # Sepet güncelle
+DELETE /api/v1/sepet/sil               # Sepetten sil
+```
+
+### B2B Endpoints
+```bash
+GET  /api/v1/b2b/urunler               # Bayi fiyatlı ürünler
+POST /api/v1/b2b/siparis/toplu         # Toplu sipariş
+GET  /api/v1/b2b/profil                # Bayi profili
+GET  /api/v1/b2b/cari-hesap            # Cari hesap
+```
+
+### Admin Endpoints
+```bash
+POST   /api/v1/admin/urunler                    # Ürün oluştur
+PUT    /api/v1/admin/urun/{id}                  # Ürün güncelle
+POST   /api/v1/admin/urunler/toplu-guncelleme   # Toplu güncelleme
+POST   /api/v1/admin/magaza/{id}/urun-esitle    # Platform ürün eşitle
+POST   /api/v1/admin/xml/import                 # XML import
+```
+
+## 🔧 Geliştirme
+
+### Code Style
+- PSR-12 PHP standartları
+- Türkçe field isimleri: `ad`, `fiyat`, `stok`
+- RESTful API conventions
+- Laravel best practices
+
+### Testing
+```bash
+# Unit testler
+php artisan test
+
+# Feature testler
+php artisan test --testsuite=Feature
+```
+
+### Debugging
+```bash
+# Log dosyalarını izleyin
+tail -f storage/logs/laravel.log
+
+# API debugging için
+php artisan tinker
+```
+
+## 📊 Monitoring ve Logs
+
+### Senkronizasyon Logları
+```bash
+# Platform senkronizasyon durumu
+GET /api/v1/admin/senkron-loglar
+
+# Hata logları
+tail -f storage/logs/platform-sync.log
+```
+
+### Performance Monitoring
+- Cache kullanımı (Redis/File)
+- Database query optimization
+- API response time tracking
+
+## 🤝 Katkıda Bulunma
+
+1. Fork edin
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Commit edin (`git commit -m 'Add amazing feature'`)
+4. Push edin (`git push origin feature/amazing-feature`)
+5. Pull Request açın
+
+## 📄 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+
+## 🆘 Destek
+
+- 📧 E-posta: support@example.com
+- 📖 Dokümantasyon: [Wiki](https://github.com/your-repo/ai-b2b/wiki)
+- 🐛 Bug Report: [Issues](https://github.com/your-repo/ai-b2b/issues)
+
+## 🏗️ Roadmap
+
+- [ ] Mobil uygulama API'leri
+- [ ] GraphQL desteği
+- [ ] Gerçek zamanlı chat desteği
+- [ ] Advanced analytics dashboard
+- [ ] Multi-language support
+- [ ] Cryptocurrency payment integration
 
 ## Code of Conduct
 

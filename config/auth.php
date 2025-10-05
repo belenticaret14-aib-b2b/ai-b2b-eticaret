@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -38,7 +37,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'kullanicilar',
         ],
     ],
 
@@ -60,14 +59,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'kullanicilar' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\Kullanici::class,
         ],
 
-        // 'users' => [
+        // Eğer doğrudan tablo kullanmak isterseniz:
+        // 'kullanicilar' => [
         //     'driver' => 'database',
-        //     'table' => 'users',
+        //     'table' => 'kullanicilar',
         // ],
     ],
 
@@ -91,8 +91,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'kullanicilar' => [
+            'provider' => 'kullanicilar',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
@@ -111,5 +111,4 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
-
 ];
