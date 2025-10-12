@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -15,113 +16,49 @@ return new class extends Migration
     public function up(): void
     {
         // Ürünler tablosu index'leri
-        Schema::table('urunler', function (Blueprint $table) {
-            // Slug ile arama (SEO URL'ler)
-            $table->index('slug', 'idx_urunler_slug');
-            
-            // Kategori ve marka filtreleme
-            $table->index('kategori_id', 'idx_urunler_kategori');
-            $table->index('marka_id', 'idx_urunler_marka');
-            
-            // Durum filtreleme
-            $table->index('durum', 'idx_urunler_durum');
-            
-            // Stok kontrolü
-            $table->index('stok', 'idx_urunler_stok');
-            
-            // Fiyat aralığı sorguları
-            $table->index('fiyat', 'idx_urunler_fiyat');
-            
-            // Barkod arama
-            $table->index('barkod', 'idx_urunler_barkod');
-            
-            // Composite index: Aktif ve stokta ürünler (en sık sorgu)
-            $table->index(['durum', 'stok'], 'idx_urunler_durum_stok');
-        });
+        $this->createIndexSafely('urunler', 'slug', 'idx_urunler_slug');
+        $this->createIndexSafely('urunler', 'kategori_id', 'idx_urunler_kategori');
+        $this->createIndexSafely('urunler', 'marka_id', 'idx_urunler_marka');
+        $this->createIndexSafely('urunler', 'durum', 'idx_urunler_durum');
+        $this->createIndexSafely('urunler', 'stok', 'idx_urunler_stok');
+        $this->createIndexSafely('urunler', 'fiyat', 'idx_urunler_fiyat');
+        $this->createIndexSafely('urunler', 'barkod', 'idx_urunler_barkod');
+        $this->createCompositeIndexSafely('urunler', ['durum', 'stok'], 'idx_urunler_durum_stok');
 
         // Mağazalar tablosu index'leri
-        Schema::table('magazalar', function (Blueprint $table) {
-            // Platform kod ile sorgulama
-            $table->index('platform_kodu', 'idx_magazalar_platform');
-            
-            // Durum kontrolü
-            $table->index('durum', 'idx_magazalar_durum');
-            
-            // Entegrasyon türü
-            $table->index('entegrasyon_turu', 'idx_magazalar_entegrasyon');
-        });
+        $this->createIndexSafely('magazalar', 'platform_kodu', 'idx_magazalar_platform');
+        $this->createIndexSafely('magazalar', 'durum', 'idx_magazalar_durum');
+        $this->createIndexSafely('magazalar', 'entegrasyon_turu', 'idx_magazalar_entegrasyon');
 
         // Siparişler tablosu index'leri
-        Schema::table('siparisler', function (Blueprint $table) {
-            // Durum filtreleme (en çok kullanılan)
-            $table->index('durum', 'idx_siparisler_durum');
-            
-            // Kullanıcı siparişleri
-            $table->index('kullanici_id', 'idx_siparisler_kullanici');
-            
-            // Tarih aralığı sorguları
-            $table->index('created_at', 'idx_siparisler_tarih');
-            
-            // Composite: Kullanıcı ve durum
-            $table->index(['kullanici_id', 'durum'], 'idx_siparisler_kullanici_durum');
-        });
+        $this->createIndexSafely('siparisler', 'durum', 'idx_siparisler_durum');
+        $this->createIndexSafely('siparisler', 'kullanici_id', 'idx_siparisler_kullanici');
+        $this->createIndexSafely('siparisler', 'created_at', 'idx_siparisler_tarih');
+        $this->createCompositeIndexSafely('siparisler', ['kullanici_id', 'durum'], 'idx_siparisler_kullanici_durum');
 
         // Bayiler tablosu index'leri
-        Schema::table('bayiler', function (Blueprint $table) {
-            // Durum kontrolü
-            $table->index('durum', 'idx_bayiler_durum');
-            
-            // Vergi no ile arama
-            $table->index('vergi_no', 'idx_bayiler_vergi');
-        });
+        $this->createIndexSafely('bayiler', 'durum', 'idx_bayiler_durum');
+        $this->createIndexSafely('bayiler', 'vergi_no', 'idx_bayiler_vergi');
 
         // Kategoriler tablosu index'leri
-        Schema::table('kategoriler', function (Blueprint $table) {
-            // Slug ile arama
-            $table->index('slug', 'idx_kategoriler_slug');
-            
-            // Üst kategori ile filtreleme
-            $table->index('ust_kategori_id', 'idx_kategoriler_ust');
-            
-            // Durum kontrolü
-            $table->index('durum', 'idx_kategoriler_durum');
-        });
+        $this->createIndexSafely('kategoriler', 'slug', 'idx_kategoriler_slug');
+        $this->createIndexSafely('kategoriler', 'ust_kategori_id', 'idx_kategoriler_ust');
+        $this->createIndexSafely('kategoriler', 'durum', 'idx_kategoriler_durum');
 
         // Markalar tablosu index'leri
-        Schema::table('markalar', function (Blueprint $table) {
-            // Slug ile arama
-            $table->index('slug', 'idx_markalar_slug');
-            
-            // Durum kontrolü
-            $table->index('durum', 'idx_markalar_durum');
-        });
+        $this->createIndexSafely('markalar', 'slug', 'idx_markalar_slug');
+        $this->createIndexSafely('markalar', 'durum', 'idx_markalar_durum');
 
         // Sepet tablosu index'leri
-        Schema::table('sepet', function (Blueprint $table) {
-            // Kullanıcı sepeti
-            $table->index('kullanici_id', 'idx_sepet_kullanici');
-            
-            // Session sepeti
-            $table->index('session_id', 'idx_sepet_session');
-            
-            // Ürün kontrolü
-            $table->index('urun_id', 'idx_sepet_urun');
-        });
+        $this->createIndexSafely('sepetler', 'kullanici_id', 'idx_sepet_kullanici');
+        $this->createIndexSafely('sepetler', 'session_id', 'idx_sepet_session');
+        $this->createIndexSafely('sepetler', 'urun_id', 'idx_sepet_urun');
 
         // Senkron Log tablosu index'leri
-        Schema::table('senkron_loglar', function (Blueprint $table) {
-            // Platform filtreleme
-            $table->index('platform', 'idx_senkron_platform');
-            
-            // İşlem türü
-            $table->index('islem_turu', 'idx_senkron_islem');
-            
-            // Tarih sorguları
-            $table->index('created_at', 'idx_senkron_tarih');
-            
-            // Composite: Platform ve tarih
-            $table->index(['platform', 'created_at'], 'idx_senkron_platform_tarih');
-        });
+        $this->createIndexSafely('senkron_loglar', 'platform', 'idx_senkron_platform');
+        $this->createIndexSafely('senkron_loglar', 'islem_turu', 'idx_senkron_islem');
+        $this->createIndexSafely('senkron_loglar', 'created_at', 'idx_senkron_tarih');
+        $this->createCompositeIndexSafely('senkron_loglar', ['platform', 'created_at'], 'idx_senkron_platform_tarih');
     }
 
     /**
@@ -130,64 +67,121 @@ return new class extends Migration
     public function down(): void
     {
         // Ürünler tablosu
-        Schema::table('urunler', function (Blueprint $table) {
-            $table->dropIndex('idx_urunler_slug');
-            $table->dropIndex('idx_urunler_kategori');
-            $table->dropIndex('idx_urunler_marka');
-            $table->dropIndex('idx_urunler_durum');
-            $table->dropIndex('idx_urunler_stok');
-            $table->dropIndex('idx_urunler_fiyat');
-            $table->dropIndex('idx_urunler_barkod');
-            $table->dropIndex('idx_urunler_durum_stok');
-        });
+        $this->dropIndexSafely('urunler', 'idx_urunler_slug');
+        $this->dropIndexSafely('urunler', 'idx_urunler_kategori');
+        $this->dropIndexSafely('urunler', 'idx_urunler_marka');
+        $this->dropIndexSafely('urunler', 'idx_urunler_durum');
+        $this->dropIndexSafely('urunler', 'idx_urunler_stok');
+        $this->dropIndexSafely('urunler', 'idx_urunler_fiyat');
+        $this->dropIndexSafely('urunler', 'idx_urunler_barkod');
+        $this->dropIndexSafely('urunler', 'idx_urunler_durum_stok');
 
         // Mağazalar tablosu
-        Schema::table('magazalar', function (Blueprint $table) {
-            $table->dropIndex('idx_magazalar_platform');
-            $table->dropIndex('idx_magazalar_durum');
-            $table->dropIndex('idx_magazalar_entegrasyon');
-        });
+        $this->dropIndexSafely('magazalar', 'idx_magazalar_platform');
+        $this->dropIndexSafely('magazalar', 'idx_magazalar_durum');
+        $this->dropIndexSafely('magazalar', 'idx_magazalar_entegrasyon');
 
         // Siparişler tablosu
-        Schema::table('siparisler', function (Blueprint $table) {
-            $table->dropIndex('idx_siparisler_durum');
-            $table->dropIndex('idx_siparisler_kullanici');
-            $table->dropIndex('idx_siparisler_tarih');
-            $table->dropIndex('idx_siparisler_kullanici_durum');
-        });
+        $this->dropIndexSafely('siparisler', 'idx_siparisler_durum');
+        $this->dropIndexSafely('siparisler', 'idx_siparisler_kullanici');
+        $this->dropIndexSafely('siparisler', 'idx_siparisler_tarih');
+        $this->dropIndexSafely('siparisler', 'idx_siparisler_kullanici_durum');
 
         // Bayiler tablosu
-        Schema::table('bayiler', function (Blueprint $table) {
-            $table->dropIndex('idx_bayiler_durum');
-            $table->dropIndex('idx_bayiler_vergi');
-        });
+        $this->dropIndexSafely('bayiler', 'idx_bayiler_durum');
+        $this->dropIndexSafely('bayiler', 'idx_bayiler_vergi');
 
         // Kategoriler tablosu
-        Schema::table('kategoriler', function (Blueprint $table) {
-            $table->dropIndex('idx_kategoriler_slug');
-            $table->dropIndex('idx_kategoriler_ust');
-            $table->dropIndex('idx_kategoriler_durum');
-        });
+        $this->dropIndexSafely('kategoriler', 'idx_kategoriler_slug');
+        $this->dropIndexSafely('kategoriler', 'idx_kategoriler_ust');
+        $this->dropIndexSafely('kategoriler', 'idx_kategoriler_durum');
 
         // Markalar tablosu
-        Schema::table('markalar', function (Blueprint $table) {
-            $table->dropIndex('idx_markalar_slug');
-            $table->dropIndex('idx_markalar_durum');
-        });
+        $this->dropIndexSafely('markalar', 'idx_markalar_slug');
+        $this->dropIndexSafely('markalar', 'idx_markalar_durum');
 
         // Sepet tablosu
-        Schema::table('sepet', function (Blueprint $table) {
-            $table->dropIndex('idx_sepet_kullanici');
-            $table->dropIndex('idx_sepet_session');
-            $table->dropIndex('idx_sepet_urun');
-        });
+        $this->dropIndexSafely('sepetler', 'idx_sepet_kullanici');
+        $this->dropIndexSafely('sepetler', 'idx_sepet_session');
+        $this->dropIndexSafely('sepetler', 'idx_sepet_urun');
 
         // Senkron Log tablosu
-        Schema::table('senkron_loglar', function (Blueprint $table) {
-            $table->dropIndex('idx_senkron_platform');
-            $table->dropIndex('idx_senkron_islem');
-            $table->dropIndex('idx_senkron_tarih');
-            $table->dropIndex('idx_senkron_platform_tarih');
-        });
+        $this->dropIndexSafely('senkron_loglar', 'idx_senkron_platform');
+        $this->dropIndexSafely('senkron_loglar', 'idx_senkron_islem');
+        $this->dropIndexSafely('senkron_loglar', 'idx_senkron_tarih');
+        $this->dropIndexSafely('senkron_loglar', 'idx_senkron_platform_tarih');
+    }
+
+    /**
+     * Güvenli index oluşturma
+     */
+    private function createIndexSafely(string $table, string $column, string $indexName): void
+    {
+        try {
+            if (!$this->indexExists($table, $indexName)) {
+                Schema::table($table, function (Blueprint $table) use ($column, $indexName) {
+                    $table->index($column, $indexName);
+                });
+                echo "✅ Index oluşturuldu: {$indexName}\n";
+            } else {
+                echo "⏭️  Index zaten var: {$indexName}\n";
+            }
+        } catch (\Exception $e) {
+            echo "⚠️  Index oluşturulamadı ({$indexName}): " . $e->getMessage() . "\n";
+        }
+    }
+
+    /**
+     * Güvenli composite index oluşturma
+     */
+    private function createCompositeIndexSafely(string $table, array $columns, string $indexName): void
+    {
+        try {
+            if (!$this->indexExists($table, $indexName)) {
+                Schema::table($table, function (Blueprint $table) use ($columns, $indexName) {
+                    $table->index($columns, $indexName);
+                });
+                echo "✅ Composite index oluşturuldu: {$indexName}\n";
+            } else {
+                echo "⏭️  Composite index zaten var: {$indexName}\n";
+            }
+        } catch (\Exception $e) {
+            echo "⚠️  Composite index oluşturulamadı ({$indexName}): " . $e->getMessage() . "\n";
+        }
+    }
+
+    /**
+     * Güvenli index silme
+     */
+    private function dropIndexSafely(string $table, string $indexName): void
+    {
+        try {
+            if ($this->indexExists($table, $indexName)) {
+                Schema::table($table, function (Blueprint $table) use ($indexName) {
+                    $table->dropIndex($indexName);
+                });
+                echo "✅ Index silindi: {$indexName}\n";
+            }
+        } catch (\Exception $e) {
+            echo "⚠️  Index silinemedi ({$indexName}): " . $e->getMessage() . "\n";
+        }
+    }
+
+    /**
+     * Index varlığını kontrol et
+     */
+    private function indexExists(string $table, string $indexName): bool
+    {
+        $connection = Schema::getConnection();
+        $schemaBuilder = $connection->getSchemaBuilder();
+        
+        // SQLite için özel kontrol
+        if ($connection->getDriverName() === 'sqlite') {
+            $indexes = DB::select("SELECT name FROM sqlite_master WHERE type='index' AND name=?", [$indexName]);
+            return count($indexes) > 0;
+        }
+        
+        // MySQL/PostgreSQL için
+        return $schemaBuilder->hasIndex($table, $indexName);
     }
 };
