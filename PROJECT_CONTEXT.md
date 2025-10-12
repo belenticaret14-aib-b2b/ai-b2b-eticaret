@@ -4,6 +4,27 @@
 
 **NetMarketiniz**, Laravel 12 tabanlı, çoklu platform entegrasyonuna sahip, B2B ve B2C satış yapabilen kapsamlı bir e-ticaret çözümüdür.
 
+### 🛍️ E-Ticaret Özellikleri
+- **B2C Vitrin**: Genel müşteriler için modern vitrin sistemi
+- **B2B Panel**: Bayiler için özel fiyatlandırma ve toplu sipariş
+- **Session-tabanlı Sepet**: Hızlı ve güvenli sepet yönetimi
+- **Gelişmiş Ürün Yönetimi**: Kategori, marka, özellik yönetimi
+- **Stok ve Fiyat Takibi**: Otomatik stok kontrolü ve fiyat güncellemeleri
+
+### 🤖 AI ve Otomasyon
+- **AI Ürün Önerisi**: Akıllı ürün öneri sistemi
+- **Claude AI Entegrasyonu**: Ürün açıklaması, SEO meta, müşteri desteği
+- **Barkod Entegrasyonu**: Otomatik ürün tanımlama
+- **Otomatik Senkronizasyon**: Zamanlanmış platform senkronizasyonu
+- **Akıllı Stok Yönetimi**: Kritik stok seviyesi takibi
+
+### 📊 B2B Özellikleri
+- **Bayi Yönetimi**: Çoklu bayi desteği ve yetkilendirme
+- **Özel Fiyatlandırma**: Bayi-specific fiyat listeleri
+- **Toplu Sipariş**: API destekli bulk order sistemi
+- **Kredi Limiti**: Bayi kredi takibi ve vade yönetimi
+- **Cari Hesap**: Detaylı finansal raporlama
+
 ---
 
 ## 🏗️ Mimari Yapı
