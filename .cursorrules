@@ -1,0 +1,89 @@
+# NetMarketiniz AI-B2B E-Ticaret Platformu
+
+## Proje Bilgileri
+- **Platform:** Laravel 12 B2B/B2C E-Ticaret
+- **Mimari:** Repository Pattern + Service Layer
+- **Database:** SQLite (Dev), MySQL (Prod)
+- **Frontend:** Tailwind CSS + Alpine.js
+
+## Platform Entegrasyonları
+- Trendyol API
+- Hepsiburada API
+- N11 API
+- Platform senkronizasyonu (ürün, stok, sipariş)
+
+## Mevcut Modüller
+1. **Admin Sistemi:**
+   - Super Admin (tam yetki)
+   - Store Admin (mağaza yönetimi)
+   - Dealer Admin (bayi yönetimi)
+
+2. **Ana Özellikler:**
+   - Ürün yönetimi
+   - Mağaza yönetimi (Ana/Alt yapısı)
+   - Sipariş yönetimi
+   - Bayi yönetimi
+   - Platform entegrasyonları
+
+3. **AI Özellikleri:**
+   - Claude AI entegrasyonu
+   - Otomatik ürün açıklamaları
+   - SEO meta generation
+   - Müşteri destek otomasyonu
+   - Hata analiz botu
+
+4. **Services:**
+   - PlatformEntegrasyonService
+   - ClaudeService
+   - HataAnalizBotService
+
+## Kod Standartları
+- PSR-12 coding standards
+- Repository pattern için interface kullan
+- Service layer'da business logic
+- Controller'lar sadece HTTP handling
+- Model'lerde scope ve relationship'ler
+- Validation Request class'larında
+
+## Veritabanı Yapısı
+- kullanicilar (rol: super_admin, store_admin, dealer_admin, bayi, musteri)
+- magazalar (ana_magaza: boolean)
+- bayiler
+- urunler
+- siparisler
+- senkron_loglar
+
+## Naming Conventions
+- Controller: PascalCase (UrunController)
+- Service: PascalCase + Service (UrunService)
+- Repository: PascalCase + Repository (UrunRepository)
+- Interface: PascalCase + RepositoryInterface
+- Model: PascalCase tekil (Urun, Magaza)
+- Migration: snake_case (create_urunler_table)
+
+## Geliştirme Notları
+
+### Yapılanlar (2025-10-12):
+- ✅ Repository Pattern uygulandı (UrunRepository)
+- ✅ Service Layer oluşturuldu (UrunService)
+- ✅ ClaudeService.php entegre edildi (AI özellikleri)
+- ✅ Cache stratejisi uygulandı
+
+### Devam Edenler:
+- 🔄 MagazaRepository oluşturulacak
+- 🔄 BayiRepository oluşturulacak
+- 🔄 SiparisRepository oluşturulacak
+
+### Teknik Detaylar:
+- Repository pattern: Interface + Eloquent implementasyon
+- Service layer: Business logic burada
+- Cache: 1 saat (3600 saniye)
+- Transaction: DB işlemlerinde kullanılıyor
+
+## Önemli Kurallar
+- Asla production .env'e müdahale etme
+- Migration'larda geri alma (down) method'u her zaman doldur
+- API rate limiting'e dikkat et (platform entegrasyonlarında)
+- Ürün senkronizasyonunda transaction kullan
+- Log her platform isteğini (SenkronLog)
+
