@@ -22,6 +22,8 @@ class Kullanici extends Authenticatable
         'adres',
         'durum',
         'email_verified_at',
+        'magaza_id',
+        'bayi_id',
     ];
 
     protected $hidden = [
@@ -35,9 +37,14 @@ class Kullanici extends Authenticatable
     ];
 
     // İlişkiler
+    public function magaza()
+    {
+        return $this->belongsTo(Magaza::class);
+    }
+
     public function bayi()
     {
-        return $this->hasOne(Bayi::class);
+        return $this->belongsTo(Bayi::class);
     }
 
     public function siparisler()
@@ -51,6 +58,21 @@ class Kullanici extends Authenticatable
     }
 
     // Scope'lar
+    public function scopeSuperAdminler($query)
+    {
+        return $query->where('rol', 'super_admin');
+    }
+
+    public function scopeStoreAdminler($query)
+    {
+        return $query->where('rol', 'store_admin');
+    }
+
+    public function scopeDealerAdminler($query)
+    {
+        return $query->where('rol', 'dealer_admin');
+    }
+
     public function scopeAdminler($query)
     {
         return $query->where('rol', 'admin');
@@ -67,6 +89,21 @@ class Kullanici extends Authenticatable
     }
 
     // Helper metodları
+    public function isSuperAdmin()
+    {
+        return $this->rol === 'super_admin';
+    }
+
+    public function isStoreAdmin()
+    {
+        return $this->rol === 'store_admin';
+    }
+
+    public function isDealerAdmin()
+    {
+        return $this->rol === 'dealer_admin';
+    }
+
     public function isAdmin()
     {
         return $this->rol === 'admin';
@@ -82,9 +119,9 @@ class Kullanici extends Authenticatable
         return $this->rol === 'musteri';
     }
 
-    // Eğer veritabanında şifre alanı 'sifre' ise, aşağıdaki gibi mapleyin
+    // Şifre alanı mapping
     public function getAuthPassword()
     {
-        return $this->sifre ?? $this->password;
+        return $this->password;
     }
 }

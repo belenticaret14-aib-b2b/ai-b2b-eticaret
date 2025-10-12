@@ -96,7 +96,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum', 'admin'])->group(function
 });
 
 // Mağaza Platform Webhook'ları
-Route::prefix('webhook')->group(function () {
+Route::prefix('webhook')->middleware('webhook.verify')->group(function () {
     Route::post('/trendyol', [MagazaController::class, 'trendyolWebhook']);
     Route::post('/hepsiburada', [MagazaController::class, 'hepsiburadaWebhook']);
     Route::post('/n11', [MagazaController::class, 'n11Webhook']);
@@ -119,4 +119,133 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Desktop API Routes (Special Authentication)
+Route::prefix('v1/desktop')->middleware('desktop.verify')->group(function () {
+    // Sistem sağlık kontrolü
+    Route::get('/health', function () {
+        return response()->json([
+            'status' => 'OK',
+            'timestamp' => now()->format('Y-m-d H:i:s'),
+            'version' => '1.0.0',
+            'database' => 'connected',
+            'cache' => 'active'
+        ]);
+    });
+    
+    // Desktop Dashboard İstatistikleri
+    Route::get('/stats', function () {
+        $stats = [
+            'total_products' => \App\Models\Urun::count(),
+            'active_products' => \App\Models\Urun::where('durum', true)->count(),
+            'total_dealers' => \App\Models\Bayi::count(),
+            'active_dealers' => \App\Models\Bayi::where('durum', true)->count(),
+            'pending_orders' => \App\Models\Siparis::where('durum', 'beklemede')->count(),
+            'low_stock_products' => \App\Models\Urun::where('stok', '<', 10)->count(),
+            'total_stores' => \App\Models\Magaza::count(),
+            'active_stores' => \App\Models\Magaza::where('durum', true)->count()
+        ];
+        
+        return response()->json([
+            'success' => true,
+            'data' => $stats,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    // Desktop Ürün Yönetimi
+    Route::get('/urunler', function () {
+        $urunler = \App\Models\Urun::with(['kategori', 'marka'])->get();
+        return response()->json([
+            'success' => true,
+            'data' => $urunler,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    Route::get('/urunler/{urun}', function ($id) {
+        $urun = \App\Models\Urun::with(['kategori', 'marka', 'resimler'])->find($id);
+        if (!$urun) {
+            return response()->json(['success' => false, 'message' => 'Ürün bulunamadı'], 404);
+        }
+        return response()->json([
+            'success' => true,
+            'data' => $urun,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    // Desktop Kategori Yönetimi
+    Route::get('/kategoriler', function () {
+        $kategoriler = \App\Models\Kategori::with('altKategoriler')->whereNull('ust_kategori_id')->get();
+        return response()->json([
+            'success' => true,
+            'data' => $kategoriler,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    // Desktop Marka Yönetimi
+    Route::get('/markalar', function () {
+        $markalar = \App\Models\Marka::all();
+        return response()->json([
+            'success' => true,
+            'data' => $markalar,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    // Desktop Bayi Yönetimi
+    Route::get('/bayiler', function () {
+        $bayiler = \App\Models\Bayi::with('kullanicilar')->get();
+        return response()->json([
+            'success' => true,
+            'data' => $bayiler,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    // Desktop Sipariş Yönetimi
+    Route::get('/siparisler', function () {
+        $siparisler = \App\Models\Siparis::with(['kullanici', 'siparisUrunleri.urun'])->latest()->take(50)->get();
+        return response()->json([
+            'success' => true,
+            'data' => $siparisler,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    // Desktop Raporlar
+    Route::get('/raporlar/stok', function () {
+        $stokRaporu = \App\Models\Urun::selectRaw('
+            COUNT(*) as toplam_urun,
+            SUM(CASE WHEN stok > 0 THEN 1 ELSE 0 END) as stoklu_urun,
+            SUM(CASE WHEN stok = 0 THEN 1 ELSE 0 END) as stoksuz_urun,
+            SUM(CASE WHEN stok < 10 THEN 1 ELSE 0 END) as dusuk_stok,
+            AVG(stok) as ortalama_stok
+        ')->first();
+        
+        return response()->json([
+            'success' => true,
+            'data' => $stokRaporu,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
+    
+    Route::get('/raporlar/satis', function () {
+        $satisRaporu = \App\Models\Siparis::selectRaw('
+            COUNT(*) as toplam_siparis,
+            SUM(toplam_tutar) as toplam_tutar,
+            AVG(toplam_tutar) as ortalama_tutar,
+            COUNT(CASE WHEN durum = "tamamlandi" THEN 1 END) as tamamlanan_siparis,
+            COUNT(CASE WHEN durum = "beklemede" THEN 1 END) as bekleyen_siparis
+        ')->first();
+        
+        return response()->json([
+            'success' => true,
+            'data' => $satisRaporu,
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    });
 });

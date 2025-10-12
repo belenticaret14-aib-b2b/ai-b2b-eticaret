@@ -34,6 +34,7 @@ class Magaza extends Model
         'ayarlar',
         'webhook_url',
         'webhook_secret',
+        'ana_magaza',
     ];
 
     protected $casts = [
@@ -41,6 +42,7 @@ class Magaza extends Model
         'aktif' => 'boolean',
         'auto_senkron' => 'boolean',
         'test_mode' => 'boolean',
+        'ana_magaza' => 'boolean',
         'komisyon_orani' => 'decimal:2',
         'son_senkron' => 'datetime',
         'son_senkron_tarihi' => 'datetime',
@@ -49,6 +51,11 @@ class Magaza extends Model
     ];
 
     // İlişkiler
+    public function kullanicilar()
+    {
+        return $this->hasMany(Kullanici::class);
+    }
+
     public function urunler()
     {
         return $this->belongsToMany(Urun::class, 'magaza_urun')
@@ -75,6 +82,16 @@ class Magaza extends Model
     public function scopePlatform($query, $platform)
     {
         return $query->where('platform', $platform);
+    }
+
+    public function scopeAnaMagaza($query)
+    {
+        return $query->where('ana_magaza', true);
+    }
+
+    public function scopeAltMagazalar($query)
+    {
+        return $query->where('ana_magaza', false);
     }
 
     // Helper metodları
@@ -107,5 +124,15 @@ class Magaza extends Model
     public function canSync()
     {
         return $this->durum && $this->isApiConfigured();
+    }
+
+    public function isAnaMagaza()
+    {
+        return $this->ana_magaza;
+    }
+
+    public function isAltMagaza()
+    {
+        return !$this->ana_magaza;
     }
 }

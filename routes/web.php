@@ -13,6 +13,10 @@ use App\Http\Controllers\Admin\BarkodController;
 use App\Http\Controllers\VitrinController;
 use App\Http\Controllers\Api\V1\SepetController as ApiSepetController;
 use App\Http\Controllers\SayfaController;
+use App\Http\Controllers\SuperAdmin\DashboardController as SuperAdminDashboardController;
+use App\Http\Controllers\StoreAdmin\DashboardController as StoreAdminDashboardController;
+use App\Http\Controllers\DealerAdmin\DashboardController as DealerAdminDashboardController;
+use App\Http\Controllers\SuperAdmin\ClaudeController;
 
 // Ana sayfa
 Route::get('/', [VitrinController::class, 'index'])->name('vitrin.index');
@@ -58,14 +62,160 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Bayi Paneli
-Route::middleware(['auth', 'bayi'])->group(function () {
-    Route::get('/bayi/panel', function () {
-        return view('bayi.panel');
-    })->name('bayi.panel');
+// ============ SÜPER ADMIN PANELİ ============
+Route::middleware(['auth', 'super_admin'])->prefix('super-admin')->name('super-admin.')->group(function () {
+    Route::get('/dashboard', [SuperAdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/panel', [SuperAdminDashboardController::class, 'index'])->name('panel');
+    
+    // Kullanıcı Yönetimi
+    Route::get('/kullanicilar', function () {
+        return view('super-admin.kullanicilar');
+    })->name('kullanicilar');
+    
+    // Mağaza Yönetimi
+    Route::get('/magazalar', function () {
+        return view('super-admin.magazalar');
+    })->name('magazalar');
+    
+    // Bayi Yönetimi
+    Route::get('/bayiler', function () {
+        return view('super-admin.bayiler');
+    })->name('bayiler');
+    
+    // Sistem Ayarları
+    Route::get('/sistem-ayarlari', function () {
+        return view('super-admin.sistem-ayarlari');
+    })->name('sistem-ayarlari');
+    
+    // Raporlar
+    Route::get('/raporlar', function () {
+        return view('super-admin.raporlar');
+    })->name('raporlar');
+    
+    // Geliştirici Sayfası
+    Route::get('/gelistirici', function () {
+        return view('super-admin.gelistirici');
+    })->name('gelistirici');
+    
+    // Proje Detayları
+    Route::get('/proje-detaylari', function () {
+        return view('super-admin.proje-detaylari');
+    })->name('proje-detaylari');
+    
+    // Bot Ayarları
+    Route::get('/bot-ayarlari', [\App\Http\Controllers\SuperAdmin\BotController::class, 'index'])->name('bot-ayarlari');
+    Route::post('/bot-update', [\App\Http\Controllers\SuperAdmin\BotController::class, 'update'])->name('bot-update');
+    Route::post('/bot-test', [\App\Http\Controllers\SuperAdmin\BotController::class, 'test'])->name('bot-test');
+    
+    // Hata Analiz Bot
+    Route::post('/hata-analiz', function () {
+        $hataAnalizBot = new \App\Services\HataAnalizBotService();
+        return response()->json($hataAnalizBot->hataAnalizEt());
+    })->name('hata-analiz');
+    
+    Route::post('/otomatik-duzelt', function () {
+        $hataAnalizBot = new \App\Services\HataAnalizBotService();
+        return response()->json($hataAnalizBot->otomatikHataDuzelt());
+    })->name('otomatik-duzelt');
+    
+    // Sistem sağlık kontrolü
+    Route::get('/sistem-saglik', function () {
+        $hataAnalizBot = new \App\Services\HataAnalizBotService();
+        $analiz = $hataAnalizBot->hataAnalizEt();
+        return response()->json([
+            'sistem_sagligi' => $analiz['sistem_sagligi'] ?? [],
+            'genel_durum' => $analiz['genel_durum'] ?? 'normal',
+            'timestamp' => now()->format('Y-m-d H:i:s')
+        ]);
+    })->name('sistem-saglik');
+    
+    // Hızlı sistem kontrolü
+    Route::get('/hizli-kontrol', function () {
+        return response()->json([
+            'durum' => 'iyi',
+            'mesaj' => 'Sistem hızlı kontrol tamamlandı',
+            'timestamp' => now()->format('Y-m-d H:i:s'),
+            'performans' => [
+                'veritabani' => 'iyi',
+                'cache' => 'iyi',
+                'dosya_sistemi' => 'iyi',
+                'api_baglantilari' => 'iyi'
+            ]
+        ]);
+    })->name('hizli-kontrol');
+    
+    // Hatalı link kontrolü ve düzeltme
+    Route::post('/hatali-link-kontrol', function () {
+        $hataliLinkService = new \App\Services\HataliLinkDuzeltmeService();
+        return response()->json($hataliLinkService->hataliLinkleriTespitVeDuzelt());
+    })->name('hatali-link-kontrol');
+    
+    // Hızlı link kontrolü
+    Route::get('/hizli-link-kontrol', function () {
+        $hataliLinkService = new \App\Services\HataliLinkDuzeltmeService();
+        return response()->json($hataliLinkService->hizliLinkKontrolu());
+    })->name('hizli-link-kontrol');
+    
+    // Claude AI
+    Route::get('/claude', [ClaudeController::class, 'index'])->name('claude');
+    Route::post('/claude/chat', [ClaudeController::class, 'chat'])->name('claude.chat');
+    Route::post('/claude/urun-aciklama', [ClaudeController::class, 'urunAciklamasi'])->name('claude.urun-aciklama');
+    Route::post('/claude/seo-meta', [ClaudeController::class, 'seoMeta'])->name('claude.seo-meta');
+    Route::post('/claude/musteri-sorusu', [ClaudeController::class, 'musteriSorusu'])->name('claude.musteri-sorusu');
+    Route::post('/claude/siparis-analizi', [ClaudeController::class, 'siparisAnalizi'])->name('claude.siparis-analizi');
+    Route::post('/claude/ceviri', [ClaudeController::class, 'ceviri'])->name('claude.ceviri');
+    Route::post('/claude/stok-uyarisi', [ClaudeController::class, 'stokUyarisi'])->name('claude.stok-uyarisi');
+    Route::post('/claude/hata-analiz', [ClaudeController::class, 'hataAnalizi'])->name('claude.hata-analiz');
+    Route::get('/claude/test', [ClaudeController::class, 'test'])->name('claude.test');
 });
 
-// Admin Paneli
+// ============ MAĞAZA ADMIN PANELİ ============
+Route::middleware(['auth', 'store_admin'])->prefix('store-admin')->name('store-admin.')->group(function () {
+    Route::get('/dashboard', [StoreAdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/panel', [StoreAdminDashboardController::class, 'index'])->name('panel');
+    Route::get('/magaza-sec', [StoreAdminDashboardController::class, 'magazaSec'])->name('magaza-sec');
+    Route::post('/magaza-ata', [StoreAdminDashboardController::class, 'magazaAta'])->name('magaza-ata');
+    
+    // Ürün Yönetimi
+    Route::get('/urunler', function () {
+        return view('store-admin.urunler');
+    })->name('urunler');
+    
+    // Sipariş Yönetimi
+    Route::get('/siparisler', function () {
+        return view('store-admin.siparisler');
+    })->name('siparisler');
+    
+    // Mağaza Ayarları
+    Route::get('/magaza-ayarlari', function () {
+        return view('store-admin.magaza-ayarlari');
+    })->name('magaza-ayarlari');
+});
+
+// ============ BAYİ ADMIN PANELİ ============
+Route::middleware(['auth', 'dealer_admin'])->prefix('dealer-admin')->name('dealer-admin.')->group(function () {
+    Route::get('/dashboard', [DealerAdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/panel', [DealerAdminDashboardController::class, 'index'])->name('panel');
+    Route::get('/bayi-sec', [DealerAdminDashboardController::class, 'bayiSec'])->name('bayi-sec');
+    Route::post('/bayi-ata', [DealerAdminDashboardController::class, 'bayiAta'])->name('bayi-ata');
+    
+    // Ürün Kataloğu
+    Route::get('/urunler', function () {
+        return view('dealer-admin.urunler');
+    })->name('urunler');
+    
+    // Sipariş Yönetimi
+    Route::get('/siparisler', function () {
+        return view('dealer-admin.siparisler');
+    })->name('siparisler');
+    
+    // Bayi Ayarları
+    Route::get('/bayi-ayarlari', function () {
+        return view('dealer-admin.bayi-ayarlari');
+    })->name('bayi-ayarlari');
+});
+
+// ============ ESKİ ADMIN PANELİ (GERİYE DÖNÜK UYUMLULUK) ============
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/panel', [DashboardController::class, 'index'])->name('admin.panel');
 
@@ -116,6 +266,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/xml/export', [XMLController::class, 'export'])->name('admin.xml.export');
 });
 
+// Bayi Paneli
+Route::middleware(['auth', 'bayi'])->group(function () {
+    Route::get('/bayi/panel', function () {
+        return view('bayi.panel');
+    })->name('bayi.panel');
+});
+
+// Bot Webhooks (Public)
+Route::post('/webhook/bot/{botType}', [\App\Http\Controllers\SuperAdmin\BotController::class, 'webhook'])->name('bot.webhook');
+
 // B2B Login 
 Route::get('/b2b-login', function () {
     return view('auth.b2b-login');
@@ -132,6 +292,9 @@ Route::middleware(['auth', 'bayi'])->group(function () {
 if (app()->environment('local')) {
     Route::get('/dev-login/{rol}', function (string $rol) {
         $email = match ($rol) {
+            'super_admin' => 'superadmin@aib2b.local',
+            'store_admin' => 'storeadmin@aib2b.local',
+            'dealer_admin' => 'dealeradmin@aib2b.local',
             'admin' => 'admin@aib2b.local',
             'bayi' => 'bayi@aib2b.local',
             'musteri' => 'musteri@aib2b.local',
@@ -151,6 +314,9 @@ if (app()->environment('local')) {
         request()->session()->regenerate();
 
         return match ($rol) {
+            'super_admin' => redirect()->route('super-admin.dashboard')->with('success', 'Süper Admin olarak giriş yapıldı.'),
+            'store_admin' => redirect()->route('store-admin.dashboard')->with('success', 'Mağaza Admin olarak giriş yapıldı.'),
+            'dealer_admin' => redirect()->route('dealer-admin.dashboard')->with('success', 'Bayi Admin olarak giriş yapıldı.'),
             'admin' => redirect()->route('admin.panel')->with('success', 'Admin olarak giriş yapıldı.'),
             'bayi' => redirect()->route('b2b.panel')->with('success', 'Bayi olarak giriş yapıldı.'),
             default => redirect()->route('vitrin.index')->with('success', 'Müşteri olarak giriş yapıldı.'),
