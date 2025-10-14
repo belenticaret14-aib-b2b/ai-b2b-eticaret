@@ -48,6 +48,19 @@ class ClaudeService
             ];
         }
 
+        // Mock mode - API kredi sorunu için geçici çözüm
+        if (config('app.env') === 'local' && env('CLAUDE_MOCK_MODE', false)) {
+            return [
+                'success' => true,
+                'response' => '🤖 Mock Claude: "Merhaba! Bu bir test yanıtıdır. Claude API kredisi yetersiz olduğu için mock modda çalışıyorum. Gerçek Claude API\'sini kullanmak için hesabınıza kredi eklemeniz gerekiyor."',
+                'usage' => [
+                    'input_tokens' => strlen($prompt),
+                    'output_tokens' => 50,
+                    'total_tokens' => strlen($prompt) + 50
+                ]
+            ];
+        }
+
         try {
             $response = $this->client->post($this->apiUrl, [
                 'json' => [
@@ -74,6 +87,16 @@ class ClaudeService
 
         } catch (GuzzleException $e) {
             Log::error('Claude API Error: ' . $e->getMessage());
+            
+            // Kredi sorunu için özel mesaj
+            if (str_contains($e->getMessage(), 'credit balance') || str_contains($e->getMessage(), '400')) {
+                return [
+                    'success' => false,
+                    'error' => 'Claude API hesabınızda yeterli kredi bulunmuyor. Lütfen hesabınıza kredi ekleyin veya CLAUDE_MOCK_MODE=true ayarını kullanın.',
+                    'response' => null,
+                    'solution' => 'Mock mode için .env dosyasına CLAUDE_MOCK_MODE=true ekleyin'
+                ];
+            }
             
             return [
                 'success' => false,

@@ -38,7 +38,7 @@ class DesktopVerifyMiddleware
         }
         
         // API key'i doğrula
-        $validApiKey = config('app.desktop_api_key');
+        $validApiKey = config('app.desktop_api_key') ?? env('DESKTOP_API_KEY');
         
         if (!$validApiKey) {
             // Üretimde API key mutlaka olmalı

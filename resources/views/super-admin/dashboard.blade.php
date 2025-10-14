@@ -1,208 +1,259 @@
-@extends('layouts.admin')
+@extends('super-admin.layouts.app')
 
 @section('title', 'Süper Admin Dashboard')
-@section('page-title', 'Süper Admin Dashboard')
-@section('page-subtitle', 'Sistem geneli yönetim paneli')
-
-@section('sidebar')
-<div class="px-4 space-y-2">
-    <!-- Dashboard -->
-    <a href="{{ route('super-admin.dashboard') }}" class="flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-        </svg>
-        Dashboard
-    </a>
-
-    <!-- Kullanıcılar -->
-    <a href="{{ route('super-admin.kullanicilar') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-        </svg>
-        Kullanıcılar
-    </a>
-
-    <!-- Mağazalar -->
-    <a href="{{ route('super-admin.magazalar') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-        </svg>
-        Mağazalar
-    </a>
-
-    <!-- Bayiler -->
-    <a href="{{ route('super-admin.bayiler') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-        </svg>
-        Bayiler
-    </a>
-
-    <!-- Sistem Ayarları -->
-    <a href="{{ route('super-admin.sistem-ayarlari') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        </svg>
-        Sistem Ayarları
-    </a>
-
-    <!-- Raporlar -->
-    <a href="{{ route('super-admin.raporlar') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-        </svg>
-        Raporlar
-    </a>
-
-    <!-- Geliştirici -->
-    <a href="{{ route('super-admin.gelistirici') }}" class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md">
-        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-        </svg>
-        Geliştirici
-    </a>
-</div>
-@endsection
+@section('page-title', '👑 Süper Admin Dashboard')
+@section('page-subtitle', 'Sistem yönetimi ve genel bakış')
 
 @section('content')
-<!-- Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Toplam Kullanıcı</h3>
-        <p class="text-3xl font-bold text-blue-600">{{ $stats['toplam_kullanici'] ?? 0 }}</p>
-        <p class="text-sm text-gray-600">Kayıtlı kullanıcı sayısı</p>
-    </div>
-    
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Aktif Mağaza</h3>
-        <p class="text-3xl font-bold text-green-600">{{ $stats['aktif_magaza'] ?? 0 }}</p>
-        <p class="text-sm text-gray-600">Platform entegrasyonları</p>
-    </div>
-    
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Toplam Bayi</h3>
-        <p class="text-3xl font-bold text-purple-600">{{ $stats['toplam_bayi'] ?? 0 }}</p>
-        <p class="text-sm text-gray-600">B2B bayiler</p>
-    </div>
-    
-    <div class="bg-white rounded-lg shadow p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Ana Mağaza</h3>
-        <p class="text-3xl font-bold text-orange-600">{{ $stats['ana_magaza'] ?? 0 }}</p>
-        <p class="text-sm text-gray-600">Ana mağaza sayısı</p>
-    </div>
-</div>
-
-<!-- Recent Orders -->
-<div class="bg-white rounded-lg shadow mb-8">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-900">Son Siparişler</h3>
-    </div>
-    <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sipariş No</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Müşteri</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tutar</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Durum</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarih</th>
-                </tr>
-            </thead>
-            <tbody class="bg-white divide-y divide-gray-200">
-                @forelse($son_siparisler ?? [] as $siparis)
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        #{{ $siparis->id }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {{ $siparis->kullanici->ad ?? 'N/A' }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        ₺{{ number_format($siparis->toplam_tutar, 2) }}
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                            @if($siparis->durum == 'tamamlandi') bg-green-100 text-green-800
-                            @elseif($siparis->durum == 'beklemede') bg-yellow-100 text-yellow-800
-                            @else bg-red-100 text-red-800
-                            @endif">
-                            {{ ucfirst($siparis->durum) }}
-                        </span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {{ $siparis->created_at->format('d.m.Y H:i') }}
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">Henüz sipariş bulunmuyor</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Store Statistics -->
-<div class="bg-white rounded-lg shadow mb-8">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-900">Mağaza İstatistikleri</h3>
-    </div>
-    <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            @forelse($magaza_istatistikleri ?? [] as $magaza)
-            <div class="border rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-2">{{ $magaza->ad }}</h4>
-                <div class="space-y-1 text-sm text-gray-600">
-                    <p>Platform: {{ ucfirst($magaza->platform ?? 'N/A') }}</p>
-                    <p>Durum: {{ $magaza->durum ? 'Aktif' : 'Pasif' }}</p>
-                    <p>Son Senkron: {{ $magaza->son_senkron ? $magaza->son_senkron->format('d.m.Y H:i') : 'Hiç' }}</p>
-                </div>
+<div class="space-y-8">
+    <!-- Welcome Card -->
+    <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl shadow-lg p-8 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">👑 Hoş Geldiniz, Süper Admin!</h2>
+                <p class="text-purple-100 text-lg">Sisteminizi yönetin ve tüm modülleri kontrol edin</p>
             </div>
-            @empty
-            <div class="col-span-3 text-center text-gray-500 py-8">Henüz mağaza bulunmuyor</div>
-            @endforelse
+            <div class="bg-white bg-opacity-20 p-4 rounded-full">
+                <i class="fas fa-crown text-4xl"></i>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Quick Actions -->
-<div class="bg-white rounded-lg shadow">
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-900">Hızlı İşlemler</h3>
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Toplam Kullanıcı</p>
+                    <p class="text-3xl font-bold text-gray-900">156</p>
+                </div>
+                <div class="bg-blue-100 p-3 rounded-full">
+                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Aktif Mağaza</p>
+                    <p class="text-3xl font-bold text-gray-900">12</p>
+                </div>
+                <div class="bg-green-100 p-3 rounded-full">
+                    <i class="fas fa-store text-green-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Toplam Ürün</p>
+                    <p class="text-3xl font-bold text-gray-900">2,847</p>
+                </div>
+                <div class="bg-purple-100 p-3 rounded-full">
+                    <i class="fas fa-box text-purple-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-orange-500">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-gray-600 text-sm font-medium">Aktif Bayi</p>
+                    <p class="text-3xl font-bold text-gray-900">28</p>
+                </div>
+                <div class="bg-orange-100 p-3 rounded-full">
+                    <i class="fas fa-handshake text-orange-600 text-xl"></i>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a href="{{ route('super-admin.kullanicilar') }}" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition">
-                <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                </svg>
-                <div>
-                    <p class="font-medium text-gray-900">👥 Kullanıcı Yönetimi</p>
-                    <p class="text-sm text-gray-600">Kullanıcıları görüntüle ve yönet</p>
+
+    <!-- Management Cards -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Ürün Yönetimi -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-gray-900">📦 Ürün Yönetimi</h3>
+                <a href="{{ route('super-admin.urunler.index') }}" 
+                   class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Yönet
+                </a>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                    <span class="text-gray-700">Toplam Ürün</span>
+                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">2,847</span>
                 </div>
+                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                    <span class="text-gray-700">Aktif Ürün</span>
+                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">2,156</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kategori Yönetimi -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-gray-900">📂 Kategori Yönetimi</h3>
+                <a href="{{ route('super-admin.kategoriler.index') }}" 
+                   class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Yönet
+                </a>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                    <span class="text-gray-700">Toplam Kategori</span>
+                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">24</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                    <span class="text-gray-700">Aktif Kategori</span>
+                    <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">18</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modül Yönetimi -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-gray-900">🔧 Modül Yönetimi</h3>
+                <a href="{{ route('super-admin.modules.index') }}" 
+                   class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    Yönet
+                </a>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                    <span class="text-gray-700">Aktif Modül</span>
+                    <span class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold">8</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span class="text-gray-700">Pasif Modül</span>
+                    <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-bold">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">⚡ Hızlı İşlemler</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <a href="{{ route('super-admin.urunler.create') }}" 
+               class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-plus text-2xl mb-2"></i>
+                <p class="font-medium">Yeni Ürün</p>
             </a>
             
-            <a href="{{ route('super-admin.magazalar') }}" class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition">
-                <svg class="w-8 h-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                </svg>
-                <div>
-                    <p class="font-medium text-gray-900">🏪 Mağaza Yönetimi</p>
-                    <p class="text-sm text-gray-600">Platform entegrasyonlarını yönet</p>
-                </div>
+            <a href="{{ route('super-admin.kategoriler.create') }}" 
+               class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-folder-plus text-2xl mb-2"></i>
+                <p class="font-medium">Yeni Kategori</p>
             </a>
             
-            <a href="{{ route('super-admin.gelistirici') }}" class="flex items-center p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition">
-                <svg class="w-8 h-8 text-orange-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                </svg>
-                <div>
-                    <p class="font-medium text-gray-900">🚀 Geliştirici</p>
-                    <p class="text-sm text-gray-600">API, Bot ve Geliştirici Araçları</p>
-                </div>
+            <a href="{{ route('super-admin.modules.create') }}" 
+               class="bg-purple-500 hover:bg-purple-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-cube text-2xl mb-2"></i>
+                <p class="font-medium">Yeni Modül</p>
             </a>
+            
+            <a href="{{ route('super-admin.theme') }}" 
+               class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-palette text-2xl mb-2"></i>
+                <p class="font-medium">Tema Ayarları</p>
+            </a>
+            
+            <a href="{{ route('super-admin.claude') }}" 
+               class="bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-robot text-2xl mb-2"></i>
+                <p class="font-medium">Claude AI</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Development Tools -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">🛠️ Geliştirici Araçları</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="{{ route('super-admin.hatali-link-kontrol') }}" 
+               class="bg-red-500 hover:bg-red-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-search text-2xl mb-2"></i>
+                <p class="font-medium">Hatalı Link Kontrolü</p>
+                <p class="text-xs text-red-100 mt-1">Sistemdeki bozuk linkleri tespit et</p>
+            </a>
+            
+            <a href="{{ route('super-admin.gelistirici') }}" 
+               class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-code text-2xl mb-2"></i>
+                <p class="font-medium">Geliştirici Sayfası</p>
+                <p class="text-xs text-blue-100 mt-1">Proje geliştirme araçları</p>
+            </a>
+            
+            <a href="{{ route('super-admin.proje-detaylari') }}" 
+               class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-project-diagram text-2xl mb-2"></i>
+                <p class="font-medium">Proje Detayları</p>
+                <p class="text-xs text-green-100 mt-1">Geliştirme roadmap'i</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- E-Ticaret Yönetimi -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">🛒 E-Ticaret Yönetimi</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="{{ route('urunler') }}" 
+               class="bg-purple-500 hover:bg-purple-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-box text-2xl mb-2"></i>
+                <p class="font-medium">Ürünler</p>
+                <p class="text-xs text-purple-100 mt-1">Ürün listesini görüntüle</p>
+            </a>
+            
+            <a href="{{ route('sepet') }}" 
+               class="bg-orange-500 hover:bg-orange-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-shopping-cart text-2xl mb-2"></i>
+                <p class="font-medium">Sepet Sistemi</p>
+                <p class="text-xs text-orange-100 mt-1">Sepet işlemlerini test et</p>
+            </a>
+            
+            <a href="{{ route('anasayfa') }}" 
+               class="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-home text-2xl mb-2"></i>
+                <p class="font-medium">Ana Mağaza</p>
+                <p class="text-xs text-blue-100 mt-1">E-ticaret sitesini görüntüle</p>
+            </a>
+            
+            <a href="{{ route('admin.panel') }}" 
+               class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-cog text-2xl mb-2"></i>
+                <p class="font-medium">Admin Panel</p>
+                <p class="text-xs text-green-100 mt-1">Mağaza yönetimi</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">🔍 Sistem Durumu</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="text-center p-4 bg-green-50 rounded-lg">
+                <i class="fas fa-database text-green-500 text-3xl mb-2"></i>
+                <p class="font-semibold text-green-700">Veritabanı</p>
+                <p class="text-green-600 text-sm">Sağlıklı</p>
+            </div>
+            
+            <div class="text-center p-4 bg-green-50 rounded-lg">
+                <i class="fas fa-server text-green-500 text-3xl mb-2"></i>
+                <p class="font-semibold text-green-700">Sunucu</p>
+                <p class="text-green-600 text-sm">Çalışıyor</p>
+            </div>
+            
+            <div class="text-center p-4 bg-green-50 rounded-lg">
+                <i class="fas fa-plug text-green-500 text-3xl mb-2"></i>
+                <p class="font-semibold text-green-700">API Bağlantıları</p>
+                <p class="text-green-600 text-sm">Aktif</p>
+            </div>
         </div>
     </div>
 </div>

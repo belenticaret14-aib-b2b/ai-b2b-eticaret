@@ -345,3 +345,6 @@ class HataliLinkDuzeltmeService
 }
 
 
+
+
+

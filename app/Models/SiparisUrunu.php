@@ -14,20 +14,16 @@ class SiparisUrunu extends Model
     protected $fillable = [
         'siparis_id',
         'urun_id',
-        'adet',
-        'birim_fiyat',
-        'toplam_fiyat',
-        'indirim_tutari',
-        'platform_urun_id',
         'urun_adi',
-        'urun_sku',
-        'urun_barkod',
+        'urun_fiyati',
+        'adet',
+        'toplam_tutar',
     ];
 
     protected $casts = [
-        'birim_fiyat' => 'decimal:2',
-        'toplam_fiyat' => 'decimal:2',
-        'indirim_tutari' => 'decimal:2',
+        'urun_fiyati' => 'decimal:2',
+        'toplam_tutar' => 'decimal:2',
+        'adet' => 'integer',
     ];
 
     // İlişkiler

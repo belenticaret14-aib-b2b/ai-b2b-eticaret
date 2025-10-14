@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'desktop_api_key' => env('DESKTOP_API_KEY'),
 
     /*
     |--------------------------------------------------------------------------

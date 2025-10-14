@@ -32,6 +32,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'bayi' => \App\Http\Middleware\BayiMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        // ...existing code...
+        'super_admin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+        'store_admin' => \App\Http\Middleware\StoreAdminMiddleware::class,
+        'dealer_admin' => \App\Http\Middleware\DealerAdminMiddleware::class,
+        'webhook_verify' => \App\Http\Middleware\WebhookVerifyMiddleware::class,
+        'desktop_verify' => \App\Http\Middleware\DesktopVerifyMiddleware::class,
+        'theme' => \App\Http\Middleware\ThemeMiddleware::class,
     ];
 }

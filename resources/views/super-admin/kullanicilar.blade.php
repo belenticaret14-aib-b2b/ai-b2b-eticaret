@@ -13,7 +13,7 @@
                     <p class="mt-2 text-gray-600">Sistem kullanıcılarını yönetin</p>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="{{ route('super-admin.panel') }}" 
+                    <a href="{{ route('super-admin.dashboard') }}" 
                        class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
                         ← Geri Dön
                     </a>
@@ -90,5 +90,7 @@
     </div>
 </div>
 @endsection
+
+
 
 

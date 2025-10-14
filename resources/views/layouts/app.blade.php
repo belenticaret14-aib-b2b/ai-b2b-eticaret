@@ -31,14 +31,14 @@
                 <div class="flex justify-between items-center">
                     <!-- Logo -->
                     <div class="flex items-center">
-                        <a href="{{ route('vitrin.index') }}" class="text-2xl font-bold text-blue-600">
+                        <a href="{{ route('anasayfa') }}" class="text-2xl font-bold text-blue-600">
                             {{ $siteAyarlar['site_adi'] ?? 'AI B2B E-Ticaret' }}
                         </a>
                     </div>
                     
                     <!-- Search Bar -->
                     <div class="hidden md:flex flex-1 max-w-lg mx-8">
-                        <form action="{{ route('vitrin.arama') }}" method="GET" class="flex w-full">
+                        <form action="{{ route('arama') }}" method="GET" class="flex w-full">
                             <input type="text" name="q" value="{{ request('q') }}" 
                                    placeholder="Ürün ara..." 
                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -52,7 +52,7 @@
                     
                     <!-- Navigation -->
                     <div class="hidden md:flex items-center space-x-6">
-                        <a href="{{ route('vitrin.index') }}" class="text-gray-700 hover:text-blue-600 transition">Ana Sayfa</a>
+                        <a href="{{ route('anasayfa') }}" class="text-gray-700 hover:text-blue-600 transition">Ana Sayfa</a>
                         <a href="{{ route('sayfa.hakkimizda') }}" class="text-gray-700 hover:text-blue-600 transition">Hakkımızda</a>
                         <a href="{{ route('sayfa.iletisim') }}" class="text-gray-700 hover:text-blue-600 transition">İletişim</a>
                         
@@ -61,7 +61,7 @@
                             $sepetNav = session('sepet', ['items' => []]);
                             $adetToplam = array_sum(array_map(fn($i) => $i['adet'] ?? 0, $sepetNav['items']));
                         @endphp
-                        <a href="{{ route('sepet.index') }}" class="relative text-gray-700 hover:text-blue-600 transition">
+                        <a href="{{ route('sepet') }}" class="relative text-gray-700 hover:text-blue-600 transition">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5H19M7 13h0m9 4a1 1 0 11-2 0 1 1 0 012 0zM6 18a1 1 0 11-2 0 1 1 0 012 0z"></path>
                             </svg>
@@ -89,10 +89,10 @@
                 <!-- Mobile Navigation -->
                 <div class="md:hidden mt-4" x-data="{ open: false }" @toggle-mobile-menu.window="open = !open" x-show="open" x-transition>
                     <div class="space-y-2">
-                        <a href="{{ route('vitrin.index') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Ana Sayfa</a>
+                        <a href="{{ route('anasayfa') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Ana Sayfa</a>
                         <a href="{{ route('sayfa.hakkimizda') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Hakkımızda</a>
                         <a href="{{ route('sayfa.iletisim') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">İletişim</a>
-                        <a href="{{ route('sepet.index') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Sepet @if($adetToplam)({{ $adetToplam }})@endif</a>
+                        <a href="{{ route('sepet') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Sepet @if($adetToplam)({{ $adetToplam }})@endif</a>
                         <a href="/b2b-login" class="block px-3 py-2 bg-blue-600 text-white rounded-md text-center">B2B Giriş</a>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                     <div>
                         <h3 class="text-lg font-semibold mb-4">Hızlı Linkler</h3>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="{{ route('vitrin.index') }}" class="text-gray-300 hover:text-white transition">Ana Sayfa</a></li>
+                            <li><a href="{{ route('anasayfa') }}" class="text-gray-300 hover:text-white transition">Ana Sayfa</a></li>
                             <li><a href="{{ route('sayfa.hakkimizda') }}" class="text-gray-300 hover:text-white transition">Hakkımızda</a></li>
                             <li><a href="{{ route('sayfa.iletisim') }}" class="text-gray-300 hover:text-white transition">İletişim</a></li>
                             <li><a href="/b2b-login" class="text-gray-300 hover:text-white transition">B2B Giriş</a></li>
