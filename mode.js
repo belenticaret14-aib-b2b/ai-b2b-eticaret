@@ -1,5 +1,4 @@
-çok güzelmodule.exports = isexe
-isexe.sync = sync
+
 
 var fs = require('fs')
 

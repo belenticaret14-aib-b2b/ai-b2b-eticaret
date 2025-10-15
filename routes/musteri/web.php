@@ -30,3 +30,5 @@ Route::middleware(['auth'])->prefix('musteri')->name('musteri.')->group(function
     })->name('favoriler');
 });
 
+
+

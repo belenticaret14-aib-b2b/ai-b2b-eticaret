@@ -213,3 +213,5 @@ class KullaniciController extends Controller
 }
 
 
+
+

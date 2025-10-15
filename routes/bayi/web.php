@@ -30,3 +30,5 @@ Route::middleware(['auth', 'bayi'])->prefix('bayi')->name('bayi.')->group(functi
     })->name('ayarlar');
 });
 
+
+

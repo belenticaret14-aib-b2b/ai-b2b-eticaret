@@ -104,3 +104,5 @@ Proje birkaç kez elden geçtiği için linkler ve dosya yolları karışık. An
 - Sadece temizlik ve eksik tamamlama yapacağız
 
 
+
+
