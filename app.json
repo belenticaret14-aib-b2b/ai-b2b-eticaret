@@ -1,0 +1,29 @@
+{
+  "id": "12345678-1234-1234-1234-123456789012",
+  "name": "Merhaba Greeting",
+  "publisher": "Default Publisher",
+  "version": "1.0.0.0",
+  "brief": "A simple greeting extension that says Merhaba",
+  "description": "This extension provides a greeting functionality in Turkish",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "20.0.0.0",
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 50099
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "10.0"
+}
