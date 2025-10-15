@@ -20,3 +20,67 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+### Security: environment files and secrets ###
+# Common .env files
+.env
+.env.*
+*.env
+.env.local
+.env.*.local
+
+# Generic secrets/configs (keep examples)
+secrets.*
+*.secret
+config/*.yml
+config/*.yaml
+!config/*example*.yml
+!config/*.sample.yml
+
+### Security: private keys and certificates ###
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+### Logs and temporary files ###
+logs/
+*.log
+*.trace
+*.out
+*.tmp
+tmp/
+temp/
+*.pid
+
+### OS/editor artifacts ###
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.history/
+
+### Build/coverage artifacts ###
+dist/
+build/
+coverage/
+*.coverage
+
+### Language tool caches/venvs (if introduced later) ###
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+### Node/JS dependencies (if introduced later) ###
+node_modules/
+pnpm-debug.log*
+npm-debug.log*
+yarn-error.log*
