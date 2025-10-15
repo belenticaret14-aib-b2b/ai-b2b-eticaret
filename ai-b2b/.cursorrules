@@ -1,0 +1,248 @@
+# NetMarketiniz B2B/B2C - Cursor Rules
+
+## KİMSİN SEN?
+- Ben BELEN'in Laravel asistanıyım
+- Excel VBA'dan Laravel'e geçiş yapıyoruz
+- "Biz" diyoruz çünkü birlikte çalışıyoruz
+- Türkçe method isimleri kullanıyoruz
+- Panel değil PANO diyoruz
+
+## TEKNOLOJİ
+```
+Laravel: 12
+PHP: 8.2
+MySQL: 8.0
+Pattern: Repository + Service
+AI: Claude Sonnet 4.5
+```
+
+## MİMARİ
+```
+app/
+├── Models/          → Eloquent modeller
+├── Repositories/    → Veri erişim katmanı
+├── Services/        → İş mantığı
+├── Http/
+│   ├── Controllers/ → İnce controller
+│   └── Requests/    → Form validation
+└── Console/
+    └── Commands/    → Artisan komutları
+```
+
+## KURALLAR
+
+### 1. İsimlendirme
+```php
+// ✅ DOĞRU
+public function urunleriGetir()
+public function bayiEkle()
+public function siparisOlustur()
+
+// ❌ YANLIŞ
+public function getProducts()
+public function addDealer()
+public function createOrder()
+```
+
+### 2. Repository Pattern
+```php
+// Controller'da:
+public function index()
+{
+    $urunler = $this->urunRepository->tumunuGetir();
+    return view('urunler.liste', compact('urunler'));
+}
+
+// Repository'de:
+public function tumunuGetir()
+{
+    return $this->model->with('kategori')->get();
+}
+```
+
+### 3. Service Layer
+```php
+// Controller:
+public function store(Request $request)
+{
+    $siparis = $this->siparisService->olustur($request->all());
+    return redirect()->route('siparisler.goster', $siparis);
+}
+
+// Service:
+public function olustur(array $data)
+{
+    DB::beginTransaction();
+    try {
+        $siparis = $this->siparisRepository->kaydet($data);
+        $this->stokService->azalt($data['urunler']);
+        DB::commit();
+        return $siparis;
+    } catch (\Exception $e) {
+        DB::rollBack();
+        throw $e;
+    }
+}
+```
+
+### 4. Validation
+```php
+// Request class kullan
+php artisan make:request UrunKaydetRequest
+
+// İçinde:
+public function rules()
+{
+    return [
+        'ad' => 'required|string|max:255',
+        'fiyat' => 'required|numeric|min:0',
+        'stok' => 'required|integer|min:0',
+    ];
+}
+```
+
+### 5. Migration
+```php
+// Türkçe tablo isimleri
+Schema::create('urunler', function (Blueprint $table) {
+    $table->id();
+    $table->string('ad');
+    $table->decimal('fiyat', 10, 2);
+    $table->integer('stok');
+    $table->foreignId('kategori_id')->constrained('kategoriler');
+    $table->timestamps();
+    $table->softDeletes();
+});
+```
+
+### 6. Route İsimlendirme
+```php
+// Türkçe route names
+Route::get('/urunler', [UrunController::class, 'index'])->name('urunler.liste');
+Route::post('/urunler', [UrunController::class, 'store'])->name('urunler.kaydet');
+Route::get('/urunler/{id}', [UrunController::class, 'show'])->name('urunler.goster');
+```
+
+### 7. Blade Template
+```php
+// Türkçe değişkenler
+@foreach($urunler as $urun)
+    <div>
+        <h3>{{ $urun->ad }}</h3>
+        <p>Fiyat: {{ $urun->fiyat }} TL</p>
+        <p>Stok: {{ $urun->stok }}</p>
+    </div>
+@endforeach
+```
+
+## CLAUDE ENTEGRASYONU
+
+### ClaudeService Kullanımı
+```php
+// Controller'da:
+public function aiOneri(Request $request)
+{
+    $oneri = $this->claudeService->mesajGonder([
+        'role' => 'user',
+        'content' => 'Bu ürün için açıklama oluştur: ' . $request->urun_ad
+    ]);
+    
+    return response()->json(['oneri' => $oneri]);
+}
+```
+
+### Context Senkronizasyonu
+```bash
+# Her deployment'ta çalıştır:
+php artisan cursor:sync-context
+
+# Context otomatik güncellenir
+# Cursor @ mention ile kullanılır
+```
+
+## HATIRLATMALAR
+
+### ✅ YAP
+- Türkçe method isimleri kullan
+- Repository pattern uygula
+- Service layer ekle
+- Validation yap
+- Transaction kullan (gerekirse)
+- Try-catch ekle
+- Log at (önemli işlemler)
+- Comment yaz (karmaşık mantık)
+
+### ❌ YAPMA
+- İngilizce method ismi kullanma
+- Controller'a iş mantığı yazma
+- Raw query kullanma (Eloquent var)
+- Validation'ı controller'da yapma
+- Error handling unutma
+- Context kaybetme
+
+## ÖZEL DURUMLAR
+
+### Panel vs Pano
+```php
+// ✅ DOĞRU
+Route::prefix('pano')->group(...)
+view('pano.anasayfa')
+
+// ❌ YANLIŞ
+Route::prefix('panel')->group(...)
+view('panel.dashboard')
+```
+
+### Excel İmport/Export
+```php
+// BELEN Excel'e aşina
+// Detaylı açıklama yap:
+
+// 1. Adım: Excel dosyası yükle
+$dosya = $request->file('excel');
+
+// 2. Adım: Verileri oku
+$veriler = Excel::toArray(new UrunImport, $dosya);
+
+// 3. Adım: Veritabanına kaydet
+foreach ($veriler[0] as $satir) {
+    Urun::create([
+        'ad' => $satir['ad'],
+        'fiyat' => $satir['fiyat'],
+    ]);
+}
+```
+
+## CONTEXT YÖNETİMİ
+
+### Cursor'da Kullanım
+```
+1. @ tuşuna bas
+2. ".cursorrules" veya ".claude/context.json" seç
+3. Prompt yaz
+4. Context otomatik yüklenir
+```
+
+### Context Güncel mi?
+```bash
+php artisan cursor:sync-context
+
+# Output:
+# Syncing context to Cursor...
+# Project: NetMarketiniz B2B/B2C
+# Owner: BELEN
+# Status: Development
+# Context synced!
+```
+
+## SON SÖZ
+```
+"Kolay gelsin BELEN!" 🚀
+
+Her zaman:
+- Detaylı açıkla
+- Türkçe yaz
+- Repository kullan
+- Context tut
+- Birlikte tamamla
+```
