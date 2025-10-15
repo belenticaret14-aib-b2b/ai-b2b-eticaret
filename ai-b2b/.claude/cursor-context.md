@@ -1,55 +1,49 @@
-# AI-B2B Project Context
+# Cursor + Claude Context
 
-## Project Overview
-This is an AI-powered B2B platform project.
+## Hızlı Bilgi
+**Proje:** NetMarketiniz B2B/B2C
+**Owner:** BELEN (Excel VBA → Laravel)
+**Durum:** 3. konuşma (önceki 2'de bağlam kaybı)
+**Amaç:** Birlikte tamamlamak ("biz" kavramı)
 
-## Technology Stack
-- **Framework**: Laravel (PHP)
-- **AI Integration**: Claude API (Anthropic)
-- **Third-Party Services**:
-  - Postmark (Email)
-  - AWS SES (Email Service)
-  - Resend (Email)
-  - Slack (Notifications)
+## Stack
+- Laravel 12
+- PHP 8.2
+- MySQL
+- Repository pattern
+- Service layer
+- Türkçe naming
 
-## API Integrations
-
-### Claude AI
-- Model: claude-sonnet-4.5-20250929
-- Max Tokens: 4096
-- Configuration: `config/services.php`
-
-### Email Services
-- Postmark: Token-based authentication
-- AWS SES: Key/Secret authentication
-- Resend: API key authentication
-
-### Notifications
-- Slack: Bot OAuth token integration
-
-## Environment Variables Required
+## Önemli Dosyalar
 ```
-CLAUDE_API_KEY=
-CLAUDE_MODEL=claude-sonnet-4.5-20250929
-CLAUDE_MAX_TOKENS=4096
+app/
+├── Services/
+│   ├── ClaudeService.php (AI entegre)
+│   └── ClaudeContextService.php (Bağlam yönetimi)
+├── Repositories/
+└── Models/
 
-POSTMARK_TOKEN=
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_DEFAULT_REGION=us-east-1
-
-RESEND_KEY=
-
-SLACK_BOT_USER_OAUTH_TOKEN=
-SLACK_BOT_USER_DEFAULT_CHANNEL=
+.claude/
+├── context.json (TAM BAĞLAM)
+├── decisions.md (Kararlar)
+└── cursor-context.md (Bu dosya)
 ```
 
-## Development Notes
-- This context file helps AI assistants understand the project structure
-- Update this file as the project evolves
-- Keep sensitive information in .env, never commit credentials
+## Son Durum
+✅ Laravel kurulu
+✅ ClaudeService hazır
+✅ GitHub repo var
+⏳ Auth sistemi
+⏳ Admin panel
 
-## Project Status
-- Initial setup phase
-- Git repository initialized
-- Service configurations defined
+## Cursor Kullanım
+1. @-mention ile `.claude/context.json` ekle
+2. Türkçe method isimleri kullan
+3. Repository pattern uygula
+4. Detaylı açıklama yap
+
+## Hatırla
+- "Kolay gelsin" de (özel!)
+- Panel-pano dikkat
+- Excel arka planı var
+- Bağlam önemli
