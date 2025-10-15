@@ -41,3 +41,8 @@ return [
     ],
 
 ];
+'claude' => [
+    'api_key' => env('CLAUDE_API_KEY'),
+    'model' => env('CLAUDE_MODEL', 'claude-sonnet-4.5-20250929'),
+    'max_tokens' => env('CLAUDE_MAX_TOKENS', 4096),
+],
