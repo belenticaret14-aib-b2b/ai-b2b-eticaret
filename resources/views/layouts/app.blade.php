@@ -75,12 +75,11 @@
                             <a href="/b2b-login" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition">B2B Giriş</a>
                         </div>
                         
-                        <!-- New Marketing Link -->
-                        <a href="{{ route('pazarlama.index') }}" target="_blank" 
-                           class="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg text-center transition-colors">
+                        <!-- Marketing Link - Disabled for now -->
+                        <!-- <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-lg text-center transition-colors">
                             <i class="fas fa-bullhorn text-2xl mb-2"></i>
                             <p class="font-medium">Pazarlama</p>
-                        </a>
+                        </a> -->
                     </div>
                     
                     <!-- Mobile menu button -->
@@ -101,9 +100,9 @@
                         <a href="{{ route('sayfa.iletisim') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">İletişim</a>
                         <a href="{{ route('sepet') }}" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Sepet @if($adetToplam)({{ $adetToplam }})@endif</a>
                         <a href="/b2b-login" class="block px-3 py-2 bg-blue-600 text-white rounded-md text-center">B2B Giriş</a>
-                        <a href="{{ route('pazarlama.index') }}" target="_blank" class="block px-3 py-2 bg-purple-600 text-white rounded-md text-center">
+                        <!-- <a href="#" class="block px-3 py-2 bg-purple-600 text-white rounded-md text-center">
                             Pazarlama
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </nav>

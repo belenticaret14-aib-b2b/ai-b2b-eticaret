@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SuperAdmin\ClaudeController;
+use App\Http\Controllers\SuperAdmin\MagazaController;
 use App\Http\Controllers\ThemeController;
 
 // ============ SÜPER ADMIN PANELİ ============
@@ -15,9 +16,19 @@ Route::middleware(['auth', 'super_admin'])->prefix('super-admin')->name('super-a
     })->name('kullanicilar');
     
     // Mağaza Yönetimi
-    Route::get('/magazalar', function () {
-        return view('super-admin.magazalar');
-    })->name('magazalar');
+    Route::get('/magazalar', [MagazaController::class, 'index'])->name('magazalar');
+    Route::get('/magazalar/create', [MagazaController::class, 'create'])->name('magazalar.create');
+    Route::post('/magazalar', [MagazaController::class, 'store'])->name('magazalar.store');
+    Route::get('/magazalar/{magaza}', [MagazaController::class, 'show'])->name('magazalar.show');
+    Route::get('/magazalar/{magaza}/edit', [MagazaController::class, 'edit'])->name('magazalar.edit');
+    Route::put('/magazalar/{magaza}', [MagazaController::class, 'update'])->name('magazalar.update');
+    Route::delete('/magazalar/{magaza}', [MagazaController::class, 'destroy'])->name('magazalar.destroy');
+    
+    // Mağaza İşlemleri
+    Route::post('/magazalar/{magaza}/test-connection', [MagazaController::class, 'testConnection'])->name('magazalar.test');
+    Route::post('/magazalar/{magaza}/sync', [MagazaController::class, 'sync'])->name('magazalar.sync');
+    Route::post('/magazalar/{magaza}/toggle-status', [MagazaController::class, 'toggleStatus'])->name('magazalar.toggle');
+    Route::post('/magazalar/{magaza}/set-main', [MagazaController::class, 'setAsMain'])->name('magazalar.set-main');
     
     // Bayi Yönetimi
     Route::get('/bayiler', function () {

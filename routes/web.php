@@ -82,7 +82,7 @@ if (app()->environment('local')) {
 
             return match ($rol) {
                 'super_admin' => redirect()->route('super-admin.dashboard')->with('success', 'Süper Admin olarak giriş yapıldı.'),
-                'admin' => redirect()->route('admin.panel')->with('success', 'Admin olarak giriş yapıldı.'),
+                'admin' => redirect()->route('admin.dashboard')->with('success', 'Admin olarak giriş yapıldı.'),
                 'bayi' => redirect()->route('bayi.panel')->with('success', 'Bayi olarak giriş yapıldı.'),
                 'musteri' => redirect()->route('musteri.panel')->with('success', 'Müşteri olarak giriş yapıldı.'),
                 default => redirect()->route('anasayfa')->with('success', 'Ana sayfaya yönlendiriliyorsunuz.'),
