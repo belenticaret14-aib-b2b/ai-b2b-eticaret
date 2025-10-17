@@ -9,6 +9,12 @@ use App\Http\Controllers\Admin\SayfaYonetimController;
 use App\Http\Controllers\Admin\XMLController;
 use App\Http\Controllers\Admin\AIController;
 use App\Http\Controllers\Admin\BarkodController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+
+// ============ YENİ ADMIN DASHBOARD ============
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+});
 
 // ============ ESKİ ADMIN PANELİ (GERİYE DÖNÜK UYUMLULUK) ============
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

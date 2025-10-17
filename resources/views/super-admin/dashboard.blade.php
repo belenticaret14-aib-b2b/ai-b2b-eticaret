@@ -169,6 +169,12 @@
                 <i class="fas fa-robot text-2xl mb-2"></i>
                 <p class="font-medium">Claude AI</p>
             </a>
+            <!-- Yeni eklenen linkler -->
+            <a href="http://localhost/ai-b2b/public/" target="_blank"
+               class="bg-gray-700 hover:bg-gray-800 text-white p-4 rounded-lg text-center transition-colors">
+                <i class="fas fa-globe text-2xl mb-2"></i>
+                <p class="font-medium">Siteyi Görüntüle</p>
+            </a>
         </div>
     </div>
 

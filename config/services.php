@@ -18,14 +18,14 @@ return [
         'token' => env('POSTMARK_TOKEN'),
     ],
 
-    'resend' => [
-        'key' => env('RESEND_KEY'),
-    ],
-
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+    ],
+
+    'resend' => [
+        'key' => env('RESEND_KEY'),
     ],
 
     'slack' => [
@@ -37,12 +37,8 @@ return [
 
     'claude' => [
         'api_key' => env('CLAUDE_API_KEY'),
-        'model' => env('CLAUDE_MODEL', 'claude-3-5-sonnet-20241022'),
+        'model' => env('CLAUDE_MODEL', 'claude-sonnet-4.5-20250929'),
+        'max_tokens' => env('CLAUDE_MAX_TOKENS', 4096),
     ],
 
 ];
-'claude' => [
-    'api_key' => env('CLAUDE_API_KEY'),
-    'model' => env('CLAUDE_MODEL', 'claude-sonnet-4.5-20250929'),
-    'max_tokens' => env('CLAUDE_MAX_TOKENS', 4096),
-],

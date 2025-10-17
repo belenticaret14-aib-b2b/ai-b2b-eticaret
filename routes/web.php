@@ -121,3 +121,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     require __DIR__.'/musteri/web.php';
 });
+
+// Aşağıdaki rota, süper adminin ürün oluşturma sayfasına erişim sağlar.
+Route::get('super-admin/urunler/create', [App\Http\Controllers\Admin\UrunController::class, 'create'])->name('super-admin.urunler.create');

@@ -1,6 +1,3 @@
-
-
-
 "use strict";
 
 const fs = require('fs');
@@ -24,7 +21,6 @@ function checkMode(stat, options) {
   const uid = stat.uid;
   const gid = stat.gid;
 
-  // Windows'da process.getuid/getgid olmayabilir, bu yüzden default null kullanalım
   const myUid = (options && options.uid !== undefined)
     ? options.uid
     : (typeof process.getuid === 'function' ? process.getuid() : null);
@@ -45,7 +41,6 @@ function checkMode(stat, options) {
   return !!ret;
 }
 
-// Export functions for external use
 module.exports = {
   isexe,
   sync,
