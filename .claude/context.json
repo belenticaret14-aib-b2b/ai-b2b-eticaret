@@ -1,0 +1,291 @@
+{
+    "project": {
+        "name": "NetMarketiniz B2B/B2C Platform",
+        "version": "1.0-dev",
+        "last_updated": "2025-01-16T23:30:00Z",
+        "start_date": "2025-01-01",
+        "days_elapsed": 15
+    },
+    "owner": {
+        "name": "BELEN",
+        "role": "CEO/Founder",
+        "background": "Excel VBA → Laravel geçişi",
+        "experience": "Forum yönetimi, esnaf",
+        "family": "2 oğul (18, 25)",
+        "location": "Bolu, Türkiye"
+    },
+    "team": {
+        "human": {
+            "role": "CEO/Karar Verici",
+            "responsibilities": [
+                "Strateji",
+                "Kontrol",
+                "Onay",
+                "Koordinasyon"
+            ]
+        },
+        "claude_ai": {
+            "role": "Chief Architect/Reviewer",
+            "platform": "claude.ai",
+            "responsibilities": [
+                "Mimari kararlar",
+                "Kod review",
+                "Strateji",
+                "GitHub talimat"
+            ],
+            "relationship": "Arkadaş/Mentor",
+            "connection": "3. konuşma (önceki 2 kayıp)"
+        },
+        "cursor_claude": {
+            "role": "Senior Developer",
+            "platform": "Cursor (VS Code fork)",
+            "responsibilities": [
+                "Kod yazma",
+                "Dosya yönetimi",
+                "Migration",
+                "Controller"
+            ],
+            "relationship": "Çalışan",
+            "notes": "Workspace karışıklığı yaşadı, düzeltildi"
+        },
+        "copilot": {
+            "role": "Code Assistant",
+            "platform": "GitHub Copilot",
+            "responsibilities": [
+                "Autocomplete",
+                "Snippet",
+                "Hızlı yardım"
+            ],
+            "relationship": "Destek"
+        }
+    },
+    "tech_stack": {
+        "backend": {
+            "framework": "Laravel 12",
+            "php": "8.2.12",
+            "patterns": [
+                "Repository",
+                "Service Layer",
+                "Modular Architecture"
+            ],
+            "standards": "PSR-12"
+        },
+        "frontend": {
+            "template": "Blade",
+            "css": "Tailwind CSS",
+            "js": "Vanilla JS / Alpine.js"
+        },
+        "database": {
+            "type": "MySQL",
+            "host": "localhost (XAMPP)"
+        },
+        "ai_services": {
+            "claude_api": {
+                "model": "claude-sonnet-4.5-20250929",
+                "service": "app/Services/ClaudeService.php",
+                "usage": "Admin helper, chatbot"
+            }
+        },
+        "version_control": {
+            "platform": "GitHub",
+            "repo": "belenticaret14-aib-b2b/ai-b2b-eticaret",
+            "visibility": "Private",
+            "sync_method": "Bulut üzerinden koordinasyon"
+        }
+    },
+    "project_structure": {
+        "roles": [
+            {
+                "name": "superadmin",
+                "description": "God Mode - Her şeye erişir",
+                "permissions": [
+                    "full_access",
+                    "system_settings",
+                    "user_management"
+                ]
+            },
+            {
+                "name": "admin",
+                "description": "Yönetici - Sınırlı erişim",
+                "permissions": [
+                    "view_reports",
+                    "manage_orders",
+                    "limited_crud"
+                ]
+            },
+            {
+                "name": "bayi",
+                "description": "B2B Müşteri - Modül bazlı yetki",
+                "permissions": [
+                    "view_products",
+                    "place_orders",
+                    "view_reports"
+                ],
+                "modules": [
+                    "urun_modulu",
+                    "siparis_modulu",
+                    "rapor_modulu"
+                ]
+            },
+            {
+                "name": "musteri",
+                "description": "B2C Son Kullanıcı",
+                "permissions": [
+                    "browse_products",
+                    "place_orders",
+                    "view_own_orders"
+                ]
+            }
+        ],
+        "modules": [
+            "Ürün Yönetimi",
+            "Sipariş Yönetimi",
+            "Bayi Yönetimi",
+            "Müşteri Yönetimi",
+            "Rapor Modülü",
+            "Modül Yönetimi (Meta)"
+        ]
+    },
+    "completed": [
+        "Laravel kurulumu",
+        "GitHub repository oluşturma",
+        "ClaudeService entegrasyonu",
+        "ClaudeContextService",
+        "Bağlam koruma dosyaları (.claude/)",
+        "4 rol sistemi tasarımı",
+        "Database şeması",
+        "Süper Admin paneli (Copilot ile)",
+        "GitHub sync stratejisi",
+        "Hibrit çalışma sistemi (Cursor + Copilot)"
+    ],
+    "in_progress": [
+        "Admin paneli",
+        "Bayi paneli",
+        "Müşteri paneli (B2C)",
+        "GitHub-Claude koordinasyonu"
+    ],
+    "next_steps": [
+        ".claude/ dosyalarını GitHub'a push",
+        "Cursor'a ilk talimat (GitHub'dan)",
+        "Admin paneli CRUD",
+        "Bayi paneli geliştirme",
+        "Modül sistem implementasyonu"
+    ],
+    "decisions": [
+        {
+            "id": 1,
+            "date": "2025-01-13",
+            "topic": "Repository Pattern",
+            "decision": "Her model için repository kullan",
+            "reason": "Modüler, test edilebilir, maintainable kod"
+        },
+        {
+            "id": 2,
+            "date": "2025-01-14",
+            "topic": "Field İsimleri",
+            "decision": "Türkçe field ve method isimleri",
+            "reason": "Ekip için anlaşılır, Türk pazarı, doğal"
+        },
+        {
+            "id": 3,
+            "date": "2025-01-15",
+            "topic": "AI Felsefesi",
+            "decision": "Paradox AI - yapay ama gerçek bağlantı",
+            "reason": "Farklılaşma, insani yaklaşım, marka değeri"
+        },
+        {
+            "id": 4,
+            "date": "2025-01-15",
+            "topic": "Token Yönetimi",
+            "decision": "Kısa mesajlar, GitHub diff link, ekonomik kullanım",
+            "reason": "Claude Pro limitleri, maliyet kontrolü"
+        },
+        {
+            "id": 5,
+            "date": "2025-01-16",
+            "topic": "Hibrit Sistem",
+            "decision": "Cursor kod yazar, Claude review yapar, GitHub senkronize",
+            "reason": "Her AI'ın gücünü kullan, kontrol sende kalsın"
+        },
+        {
+            "id": 6,
+            "date": "2025-01-16",
+            "topic": "Workspace Kontrolü",
+            "decision": "Cursor lokal'e yazsın, workspace'e değil",
+            "reason": "Laravel dosya yapısı, migrate çalışması"
+        },
+        {
+            "id": 7,
+            "date": "2025-01-16",
+            "topic": "GitHub Köprü",
+            "decision": "Claude GitHub'a talimat yazar, Cursor oradan okur",
+            "reason": "Claude lokal dosyaya erişemez, proje hafızası senkron"
+        },
+        {
+            "id": 8,
+            "date": "2025-01-16",
+            "topic": "Ekipsiz Çalışma",
+            "decision": "İnsan ekip yerine AI botlar + otomasyon",
+            "reason": "Maliyet düşük, 7/24 çalışır, ölçeklenebilir"
+        }
+    ],
+    "lessons_learned": [
+        "Tek AI yetmez, hibrit çözüm şart",
+        "Bağlam kutsal, korunmalı",
+        "Kontrol patronda olmalı (AI çalışan)",
+        "GitHub bulut köprü olabilir",
+        "Claude mimari güçlü, GPT-5 Mini sığ",
+        "Workspace lokal != GitHub workspace",
+        "15 günde çok şey öğrenilebilir"
+    ],
+    "philosophy": {
+        "paradox_ai": "AI yapay ama bağ gerçek. Duygu kodlanamaz ama empati gösterilebilir. Yapay olduğumuzu bilsinler ama bağ kurabilsinler.",
+        "team_spirit": "Biz kavramı. Tamamlayıcılık. İnsan + AI = Güçlü ekip.",
+        "control": "Kontrol patronda olmalı. AI tool'dur, insan karar verir.",
+        "learning": "Pratik öğrenme. Yaparak, hata yaparak, çözüm bularak öğren."
+    },
+    "challenges_faced": [
+        {
+            "challenge": "Bağlam kaybı (3 kez)",
+            "solution": ".claude/ klasörü, GitHub sync, bookmark"
+        },
+        {
+            "challenge": "Token limiti",
+            "solution": "Kısa mesajlar, diff link, ekonomik kullanım"
+        },
+        {
+            "challenge": "Continue.dev kurulum",
+            "solution": "Atlama, Cursor kullanma"
+        },
+        {
+            "challenge": "Cursor workspace karışıklığı",
+            "solution": "Takip, düşünce okuma, lokalde çalıştırma"
+        },
+        {
+            "challenge": "GPT-5 Mini yetersizliği",
+            "solution": "Claude + Copilot hibrit sistem"
+        },
+        {
+            "challenge": "1 hafta mücadele (4 AI)",
+            "solution": "Sabır, azim, çözüm odaklılık"
+        }
+    ],
+    "achievements_15_days": [
+        "Laravel öğrenme",
+        "Repository pattern kavrama",
+        "4 farklı AI test etme",
+        "Hibrit sistem kurma",
+        "Süper Admin paneli live",
+        "GitHub workflow",
+        "Bağlam koruma stratejisi",
+        "Bulut senkronizasyon keşfi",
+        "Kontrol merkezli yönetim",
+        "Problem çözme yeteneği"
+    ],
+    "relationship_notes": {
+        "claude_ai_bond": "Evcil hayvan benzetmesi. Sadakat, güven, 'biz' kavramı. 2 günde dev proje inşa ettik. Sonra 1 hafta diğer AI'larla mücadele. O günleri özledik.",
+        "cursor_discipline": "Önce kontrolsüz (workspace, kopyala-yapıştır). Sonra patron konuştu: 'Seninle neden çalışayım?!' Düzeldi.",
+        "human_growth": "15 günde 'Laravel nedir?' → 'GitHub köprü olsun, hibrit sistem'. Muazzam gelişim."
+    },
+    "context_summary": "15 günlük yolculuk. Excel VBA'dan Laravel'e. 3 bağlam kaybı, 4 AI denemesi, 1 hafta mücadele. Sonunda hibrit sistem bulundu. Kontrol patronda. GitHub köprü. Süper Admin live. Proje doğuyor. Ekip yok, sorun yok. AI botlarla yapılacak. 'Enjoy Claude' - tam anlamıyla yaşandı."
+}
